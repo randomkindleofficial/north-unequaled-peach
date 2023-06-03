@@ -1,0 +1,169 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HSS Manager</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <style>
+    .button-section {
+      padding: 10px;
+    }
+
+    .button-section h3 {
+      margin-bottom:
+        10px;
+    }
+
+    .section {
+      margin-bottom: 20px;
+      padding: 20px;
+    }
+
+  #loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+#loading-overlay p {
+  color: #fff;
+  font-size: 18px;
+  text-align: center;
+
+  
+}
+
+
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">HSS Manager |
+      School Code 6018</a>
+
+    <div class="d-flex pe-2 ml-auto order-1">
+      <div class="dropdown mr-2">
+        <button class="btn btn-outline-light dropdown-toggle" type="button" id="inputsDropdown" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Inputs
+        </button>
+        <div class="dropdown-menu" aria-labelledby="inputsDropdown">
+          <a class="dropdown-item" aria-type="inputs" href="#">Staff Details</a>
+          <a class="dropdown-item" aria-type="inputs" href="#">Absentees List</a>
+          <a class="dropdown-item" aria-type="inputs" href="#">Attendance Practical</a>
+          <a class="dropdown-item" aria-type="inputs" href="#">Accounts</a>
+          <a class="dropdown-item" aria-type="inputs" href="#">Invigilator Duty</a>
+          <a class="dropdown-item" aria-type="inputs" href="#">Attendance Theory</a>
+          <a class="dropdown-item" aria-type="inputs" href="#">Practical Meeting TA</a>
+          <a class="dropdown-item" aria-type="inputs" href="#">Stamp</a>
+        </div>
+      </div>
+
+      <div class="dropdown mr-2">
+        <button class="btn btn-outline-light dropdown-toggle" type="button" id="customDropdown" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Outputs
+        </button>
+        <div class="dropdown-menu" aria-labelledby="customDropdown">
+          <a class="dropdown-item" aria-type="outputs" href="#">Final Acquittance</a>
+          <a class="dropdown-item" aria-type="outputs" href="#">Schoolwise</a>
+          <a class="dropdown-item" aria-type="outputs" href="#">Staff List</a>
+          <hr />
+          <a class="dropdown-item" aria-type="outputs" href="#">Conducted Practical Details</a>
+          <a class="dropdown-item" aria-type="outputs" href="#">CrossTab Theory</a>
+          <a class="dropdown-item" aria-type="outputs" href="#">Practical</a>
+          <a class="dropdown-item" aria-type="outputs" href="#">Time Table</a>
+          <hr />
+          <a class="dropdown-item" aria-type="outputs" href="#">Itemwise</a>
+          <a class="dropdown-item" aria-type="outputs" href="#">Remuneration Details</a>
+          <a class="dropdown-item" aria-type="outputs" href="#">Datewise</a>
+          <a class="dropdown-item" aria-type="outputs" href="#">Voucher Numberwise</a>
+          <a class="dropdown-item" aria-type="outputs" href="#">To BiMS</a>
+          <a class="dropdown-item" aria-type="outputs" href="#">Bank Details</a>
+          <hr />
+          <a class="dropdown-item" aria-type="outputs" href="#">Summary</a>
+          <a class="dropdown-item" aria-type="outputs" href="#">Packing Slip</a>
+          <a class="dropdown-item" aria-type="outputs" href="#">Student List</a>
+          <a class="dropdown-item" aria-type="outputs" href="#">TA DA Form</a>
+          <a class="dropdown-item" aria-type="outputs" href="#">Tr 59</a>
+        </div>
+      </div>
+
+      <div class="dropdown mr-2">
+        <button class="btn btn-outline-light dropdown-toggle" type="button" id="othersDropdown" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Others
+        </button>
+        <div class="dropdown-menu" aria-labelledby="othersDropdown">
+          <a class="dropdown-item" aria-type="others" href="#">Check List</a>
+          <a class="dropdown-item" aria-type="others" href="#">Nightwatchman</a>
+          <a class="dropdown-item" aria-type="others" href="#">Other Receipts</a>
+          <a class="dropdown-item" aria-type="others" href="#">Service Certificate RelOrder</a>
+          <a class="dropdown-item" aria-type="others" href="#">Estimate</a>
+          <a class="dropdown-item" aria-type="others" href="#">Timetable</a>
+          <a class="dropdown-item" aria-type="others" href="#">Seating</a>
+
+          <a class="dropdown-item" aria-type="others" href="#">Other Duty Certificate</a>
+        </div>
+      </div>
+
+      <div class="dropdown mr-2">
+        <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          6019
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" aria-type="root" href="#">About</a>
+          <a class="dropdown-item" aria-type="root" href="#">Basic Settings</a>
+          <a class="dropdown-item" aria-type="root" href="#">Help</a>
+          <a class="dropdown-item" aria-type="root" href="#">Logout</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+<hr>
+
+  {{!-- {{> (lookup . 'partialfn') }} --}}
+
+
+<div id="loading-overlay" style="visibility: hidden">
+  <!-- Add your loading content here -->
+</div>
+
+
+
+  <script>
+    const loadingOverlay = document.getElementById('loading-overlay');
+
+   function modifyElementHref(type) {
+      const elements = document.querySelectorAll(`[aria-type="${type}"]`);
+
+      elements.forEach(element => {
+        const name = element.innerText.replace(/\s+/g, '').toLowerCase();
+        console.log(name)
+        element.setAttribute('href', `/${type}/${name}`);
+      });
+    }
+
+    modifyElementHref('others');
+    modifyElementHref('inputs');
+    modifyElementHref('root');
+    modifyElementHref('outputs');
+
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
